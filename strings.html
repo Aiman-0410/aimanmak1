@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Methods</title>
+</head>
+<body>
+    <h2>String Methods</h2>
+    <button type="button" onclick="runAnalysis()">Click Me!</button>
+    <script>
+        function analyzeString(str) {
+            const length = str.length;
+            const lowercase = str.toLowerCase();
+            const uppercase = str.toUpperCase();
+            const containsJavaScript = str.includes("JavaScript");
+            const counta = str.toUpperCase(str).split('A').length - 1;
+            return {
+                length: length,
+                lowercase: lowercase,
+                uppercase: uppercase,
+                containsJavaScript: containsJavaScript,
+                counta: counta
+            };
+        }
+
+        function runAnalysis() {
+            const str = "Hello, JavaScript!";
+            const result = analyzeString(str);
+            console.log("String Analysis Results:");
+            console.log("Length:", result.length);
+            console.log("Lowercase:", result.lowercase);
+            console.log("Uppercase:", result.uppercase);
+            console.log("Contains 'JavaScript':", result.containsJavaScript);
+            console.log("Occurrences of 'a':", result.counta);
+        }
+    </script>
+</body>
+</html>
