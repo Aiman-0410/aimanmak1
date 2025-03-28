@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects, Sets & Maps</title>
+</head>
+<body>
+    <h2>Objects, Sets & Maps</h2>
+    <button type="button" onclick="myFunc()">Click Me!</button>
+    <script>     
+        function myFunc() {
+            
+            var person = {
+               
+                name: "John",
+                age: 30,
+                gender: "Male",
+                occupation: "Engineer"
+            };
+            console.log("Person 1:",person);
+            var person1 = {
+               
+               name: "Alice",
+               age: 25,
+               gender: "Female",
+               occupation: "Doctor"
+           };
+           console.log("Person 2:",person1);
+
+           function getUniqueNumbers(array) {
+                return new Set(array);
+           }
+            console.log("Set Task:")
+            const numbers = [1, 2, 2, 3, 4, 4, 5];
+            console.log("Unique numbers:", getUniqueNumbers(numbers));
+            const setA = new Set([1, 2, 3]);
+            const setB = new Set([3, 4, 5]);
+            console.log("Union:", new Set([...setA, ...setB]));
+            console.log("Intersection:", new Set([...setA].filter(x => setB.has(x))));
+            console.log("Difference (A - B):", new Set([...setA].filter(x => !setB.has(x))));
+            function isSubset(setA, setB) {
+                return [...setA].every(x => setB.has(x));
+            }
+            console.log("Is setA a subset of setB?", isSubset(setA, setB));
+           
+            const myMap = new Map();
+            myMap.set("name", "Alice");
+            myMap.set("age", 30);
+            myMap.set("gender","Female")
+            console.log("Map:", myMap);
+            console.log("Name:", myMap.get("name"));
+            myMap.set("age", 31); // Update value
+            console.log("Updated age:", myMap.get("age"));
+            myMap.delete("name"); // Delete entry
+            console.log("Map after deletion:", myMap);
+        }
+
+    </script>
+</body>
+</html>
+ 
