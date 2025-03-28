@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Manipulation</title>
+</head>
+<body>
+    <h2>Array Manipulation</h2>
+    <button type="button" onclick="myFunc()">Click Me!</button>
+    <script>
+        function myFunc() {
+            const names = ["John", "Jane", "Doe", "Alice", "Bob"];
+            console.log("Original names:");
+            console.log(names.join("\n"));
+            names.push("Eve");
+            console.log("After adding 'Eve':", names);
+            const indexOfDoe = names.indexOf("Doe");
+            if (indexOfDoe !== -1) {
+              names.splice(indexOfDoe, 1);
+            }
+            console.log("After removing 'Doe':", names);
+            names.sort();
+            console.log("After sorting:", names);
+            if (names.includes("Alice")) {
+                console.log("Alice is present");
+            } else {
+                console.log("Alice is not present");
+            }
+            const uppercaseNames = names.map(name => name.toUpperCase());
+            console.log("Uppercase names:", uppercaseNames); 
+        }    
+    </script>
+</body>
+</html>
