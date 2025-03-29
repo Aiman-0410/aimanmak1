@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback Function</title>
+</head>
+<body>
+    <h2>Callback Function</h2>
+    <button type="button" onclick="testCalculate()">Click Me!</button>
+    <script>
+        // Function to perform a calculation and call a callback with the result
+        function calculate(num1, num2, operation, callback) {
+            let result;
+            switch (operation) {
+                case "add":
+                    result = num1 + num2;
+                    break;
+                case "subtract":
+                    result = num1 - num2;
+                    break;
+                case "multiply":
+                    result = num1 * num2;
+                    break;
+                case "divide":
+                    result = num2 !== 0 ? num1 / num2 : "Error: Division by zero";
+                    break;
+                default:
+                    result = "Error: Invalid operation";
+            }
+            callback(result);
+        }
+
+        // Callback function to display the result
+        function displayResult(result) {
+            console.log("Result:", result);
+        }
+        // Test the calculate function
+        function testCalculate() {
+            calculate(10, 5, "add", displayResult);       // Output: Result: 15
+            calculate(10, 5, "subtract", displayResult);  // Output: Result: 5
+            calculate(10, 5, "multiply", displayResult);  // Output: Result: 50
+            calculate(10, 5, "divide", displayResult);    // Output: Result: 2
+            calculate(10, 0, "divide", displayResult);    // Output: Result: Error: Division by zero
+            calculate(10, 5, "modulus", displayResult);   // Output: Result: Error: Invalid operation
+        }
+    </script>
+</body>
+</html>
