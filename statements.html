@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional and Looping Statements</title>
+</head>
+<body>
+    <h2>Conditional and Looping Statements</h2>
+    <button type="button" onclick="executeStatements()">Click Me!</button>
+    <script>
+        function executeStatements() {
+            // Conditional Statements
+            const num = 10;
+            if(num > 0) {
+                console.log("Number is positive");
+            }
+
+            const num1 = 4// if-else
+            if (num1 > 5) {
+                console.log("Number is greater than 5");
+            } else {
+                console.log("Number is 5 or less");
+            }
+
+            const num2 = -3; // nested if-else
+            if(num2 > 0) {
+                console.log("Number is positive");
+            } else if (num2 < 0) {
+                console.log("Number is negative");
+            } else {
+                console.log("Number is zero");
+            }
+
+
+            // switch-case
+            const day = "Sunday";
+            switch (day) {
+                case "Monday":
+                    console.log("It's Monday!");
+                    break;
+                case "Friday":
+                    console.log("It's Friday!");
+                    break;
+                default:
+                    console.log("It's another day!");
+            }
+            // Looping Statements
+            const arr = [1, 2, 3, 4, 5];
+            // for loop 
+            console.log("For loop:");
+            for (let i = 0; i < arr.length; i++) {
+                console.log(arr[i]);
+            }
+
+            // for...in loop
+            const obj = { a: 6, b: 7, c: 8 };
+            console.log("For...in loop:");
+            for (const key in obj) {
+                console.log(key + ": " + obj[key]);
+            }
+
+            // for...of loop
+            const colors=["red", "grey", "blue"];
+            console.log("For...of loop:");
+            for (const eachColor of colors) {
+                console.log(eachColor);
+            }
+
+            // while loop
+            const arr1 = [5,4,3,2,1];
+            console.log("While loop:");
+            let i = 0;
+            while (i < arr1.length) {
+                console.log(arr1[i]);
+                i++;
+            }
+
+            // do-while loop
+            const arr2 = [10, 20, 30, 40, 50];
+            console.log("Do-while loop:");
+            i = 0;
+            do {
+                console.log(arr2[i]);
+                i++;
+            } while (i < arr2.length);
+
+            
+
+            
+        }
+    </script>
+</body>
+</html>
