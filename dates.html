@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dates & Regex</title>
+</head>
+<body>
+    <h2>Dates & Regex</h2>
+    <button type="button" onclick="myFunc()">Click Me!</button>
+    <script>     
+        function myFunc() {
+            // Date and Time
+            const currentDate = new Date();
+            console.log("Current Date and Time:", currentDate);
+            const specificDate = new Date('2025-01-01T12:00:00Z'); // UTC date
+            console.log("Specific Date:", specificDate);
+            const usingMS = new Date(1672531199000); // Date from milliseconds since epoch
+            console.log("Date from milliseconds:", usingMS);
+            const date = new Date()
+            console.log("Year:", date.getFullYear());
+            console.log("Month:", date.getMonth() + 1); // Months are zero-based
+            console.log("Date:", date.getDate());
+            console.log("Hours:", date.getHours());
+            console.log("Minutes:", date.getMinutes());
+            console.log("Seconds:", date.getSeconds());
+
+            // Regular Expressions
+            let pat = /hello/; // 'i' for case-insensitive
+            let str = "Hello World!";
+            console.log("Does the string match the pattern?", pat.test(str));
+            let pat1 = /\b[cC]\w+/g;
+            let str1 = "Cats and dogs are great pets. Camels are also nice.";
+            console.log("Matches:", str1.match(pat1));
+            let pat2 = /^[a-zA-Z0-9.,;:_%+-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/
+            str2 = "myemail@ultimez.com";
+            console.log("Is valid email:", pat2.test(str2));
+        }
+        // Regular Expression Example       
+        const regex = /[a-zA-Z0-9]+/g; // Matches alphanumeric characters
+        const str = "Hello 123 World!";    
+    </script>        
+</body>
+</html>
