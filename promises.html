@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Call with Promises and Async/Await</title>
+</head>
+<body>
+    <h2>API Call with Promises and Async/Await</h2>
+    <button type="button" onclick="callApiWithPromises()">Call API with Promises</button>
+    <button type="button" onclick="callApiWithAsyncAwait()">Call API with Async/Await</button>
+    <script>
+        const dummyApiUrl = "https://api.github.com/users"; // Example API URL
+
+        // Call API using Promises
+        function callApiWithPromises() {
+            fetch(dummyApiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Data fetched using Promises:", data);
+                })
+                .catch(error => {
+                    console.error("Error fetching data with Promises:", error);
+                });
+        }
+
+        // Call API using Async/Await
+        async function callApiWithAsyncAwait() {
+            try {
+                const response = await fetch(dummyApiUrl);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const data = await response.json();
+                console.log("Data fetched using Async/Await:", data);
+            } catch (error) {
+                console.error("Error fetching data with Async/Await:", error);
+            }
+        }
+    </script>
+</body>
+</html>
