@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 650px;
+            margin: center;
+        }
+        h1 {
+            text-align: center;
+            color: blanchedalmond;
+        }
+        .task-input {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .task-input input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .task-input button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .task-input button:hover {
+            background-color: #218838;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            animation: fadeIn 0.3s;
+        }
+        .task-item.completed {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+        .task-item button {
+            margin-left: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .task-item button.edit {
+            color: #007bff;
+        }
+        .task-item button.complete {
+            color: #28a745;
+        }
+        .task-item button.delete {
+            color: #dc3545;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="height: 100%; width: 700px; background: coral; margin: 25px; padding: 10px;">
+        <h1>To-Do List</h1>
+        <div class="task-input">
+            <input type="text" id="new-task" placeholder="Enter a new task">
+            <button id="add-task">Add Task</button>
+        </div>
+        <ul class="task-list" id="task-list"></ul>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            function loadTasks() {
+                const tasks = [
+        { title: "Buy groceries", completed: false },
+        { title: "Call the doctor for an appointment", completed: false },
+        { title: "Pay electricity bill", completed: true },
+        { title: "Clean the house", completed: false },
+        { title: "Prepare a presentation for work", completed: true },
+        { title: "Exercise for 30 minutes", completed: false },
+        { title: "Read a book for 1 hour", completed: false },
+        { title: "Plan a weekend trip", completed: false },
+        { title: "Organize the wardrobe", completed: true },
+        { title: "Water the plants", completed: false }
+    ];
+
+    $('#task-list').empty();
+    tasks.forEach(task => {
+        addTaskToDOM(task.title, task.completed);
+    });
+}
+            function saveTasks() {
+                const tasks = [];
+                $('#task-list .task-item').each(function () {
+                    tasks.push({
+                        title: $(this).find('.task-text').text(),
+                        completed: $(this).hasClass('completed')
+                    });
+                });
+                $.ajax({
+                    url: 'https://jsonplaceholder.typicode.com/posts', // Replace with your server endpoint
+                    method: 'POST',
+                    data: JSON.stringify(tasks),
+                    contentType: 'application/json',
+                    success: function () {
+                        alert('Tasks saved successfully!');
+                    }
+                });
+            }
+            function addTaskToDOM(taskText, completed = false) {
+                const taskItem = $(`
+                    <li class="task-item ${completed ? 'completed' : ''}">
+                        <span class="task-text">${taskText}</span>
+                        <div>
+                            <button class="edit"><i class="fas fa-edit"></i></button>
+                            <button class="complete"><i class="fas fa-check"></i></button>
+                            <button class="delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                `);
+
+                $('#task-list').append(taskItem);
+            }
+
+            // Add new task
+            $('#add-task').click(function () {
+                const taskText = $('#new-task').val().trim();
+                if (taskText) {
+                    addTaskToDOM(taskText);
+                    $('#new-task').val('');
+                }
+            });
+
+            // Edit task
+            $('#task-list').on('click', '.edit', function () {
+                const taskText = $(this).closest('.task-item').find('.task-text');
+                const newText = prompt('Edit Task:', taskText.text());
+                if (newText) {
+                    taskText.text(newText);
+                }
+            });
+
+            // Mark task as completed
+            $('#task-list').on('click', '.complete', function () {
+                $(this).closest('.task-item').toggleClass('completed');
+            });
+
+            // Delete task
+            $('#task-list').on('click', '.delete', function () {
+                $(this).closest('.task-item').fadeOut(300, function () {
+                    $(this).remove();
+                });
+            });
+
+            // Load tasks on page load
+            loadTasks();
+
+            // Save tasks to the server when the page is unloaded
+            $(window).on('beforeunload', function () {
+                saveTasks();
+            });
+        });
+    </script>
+</body>
+</html>
